@@ -21,31 +21,29 @@ export const DataField = (p: {
     | 'blocks'
   value?: string | string[]
   footer?: React.ReactNode
-  activeValue?: string
+  activeIndex?: number
 }) => {
   return (
     <div className={cn('w-full pb-4', p.type === 'boolean' && '-mt-2')}>
       {p.type !== 'boolean' && (
-        <div className='mx-3 px-1 text-sm opacity-30'>{p.label}</div>
+        <div className='mx-4 px-1 text-sm opacity-30'>{p.label}</div>
       )}
       {p.type === 'text' && (
-        <Input
-          className='mx-2'
-          placeholder={`Add ${p.label} here`}
-          value={p.value}
-          readOnly
-        />
+        <div className='px-3'>
+          <Input placeholder={`Add ${p.label} here`} value={p.value} readOnly />
+        </div>
       )}
       {p.type === 'textarea' && (
-        <Textarea
-          className='mx-2'
-          placeholder={`Add ${p.label} here`}
-          value={p.value}
-          readOnly
-        />
+        <div className='px-3'>
+          <Textarea
+            placeholder={`Add ${p.label} here`}
+            value={p.value}
+            readOnly
+          />
+        </div>
       )}
       {p.type === 'boolean' && (
-        <div className='mx-2 mt-2 flex items-center space-x-2'>
+        <div className='mx-3 mt-2 flex items-center space-x-2'>
           <Switch id={`switch-item-${p.label}`} />
           <Label htmlFor={`switch-item-${p.label}`}>{p.label}</Label>
         </div>
@@ -69,7 +67,7 @@ export const DataField = (p: {
         <div className='mt-1 flex flex-col gap-1'>
           {(typeof p.value === 'string' ? [p.value] : (p.value ?? [])).map(
             (v, i) => {
-              const isActive = p.activeValue === v
+              const isActive = p.activeIndex === i
 
               return (
                 <ColumnButton

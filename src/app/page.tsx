@@ -71,20 +71,46 @@ export default async function Home() {
                 type={'blocks'}
                 label='Blocks'
                 value={[
-                  'Two Column',
+                  'Column Layout',
                   'News Preview',
                   'Full Width',
                   'Image',
                   'Grid',
                 ]}
-                activeValue='Two Column'
+                activeIndex={0}
                 footer={
                   <ColumnButton label='Add new block' icon={<Plus />} subtle />
                 }
               />
+              <DataField type={'text'} label='Layout' />
+              <DataField type={'boolean'} label='Require login' />
             </Column>
-            <Column title='Two Column'></Column>
-            <Column title='Text'></Column>
+            <Column title='Column Layout'>
+              <DataField
+                type={'blocks'}
+                label='Columns'
+                value={['Column', 'Column']}
+                activeIndex={1}
+                footer={
+                  <ColumnButton label='Add new column' icon={<Plus />} subtle />
+                }
+              />
+            </Column>
+            <Column title='Column'>
+              <DataField
+                type={'blocks'}
+                label='Content'
+                value={['Text', 'Image']}
+                activeIndex={0}
+                footer={
+                  <ColumnButton
+                    label='Add new content'
+                    icon={<Plus />}
+                    subtle
+                  />
+                }
+              />
+            </Column>
             <Column title=''></Column>
             <Column title=''></Column>
           </div>
