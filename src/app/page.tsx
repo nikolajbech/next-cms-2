@@ -45,17 +45,19 @@ export default async function Home() {
             <Column title='Pages'>
               <ColumnButton label='Frontpage' hasNextLevel />
               <ColumnButton label='About Us' hasNextLevel />
+              <ColumnButton label='Products' hasNextLevel />
               <ColumnButton label='Features' hasNextLevel isActive />
               <ColumnButton label='Careers' hasNextLevel />
               <ColumnButton label='Out History' hasNextLevel />
-              <ColumnButton label='Products' hasNextLevel />
               <div className='h-2' />
               <ColumnButton label='Add new page' icon={<Plus />} subtle />
             </Column>
             <Column title='Page'>
               <DataField type={'text'} label='Title' />
               <DataField type={'text'} label='Slug' />
+              <DataField type={'boolean'} label='Is dynamic slug' />
               <DataField type={'textarea'} label='Excerpt' />
+              <DataField type={'link'} label='Parent page' value='Products' />
             </Column>
             <Column title='Two Column'></Column>
             <Column title='Text'></Column>
