@@ -50,7 +50,7 @@ export const DataField = (p: {
       )}
 
       {p.type === 'link' && (
-        <div className='mt-1 flex flex-col gap-1'>
+        <div className='mt-1 flex flex-col'>
           {(typeof p.value === 'string' ? [p.value] : (p.value ?? [])).map(
             (v, i) => (
               <ColumnButton
@@ -64,7 +64,7 @@ export const DataField = (p: {
       )}
 
       {p.type === 'blocks' && (
-        <div className='mt-1 flex flex-col gap-1'>
+        <div className='mt-1 flex flex-col'>
           {(typeof p.value === 'string' ? [p.value] : (p.value ?? [])).map(
             (v, i) => {
               const isActive = p.activeIndex === i
@@ -72,7 +72,8 @@ export const DataField = (p: {
               return (
                 <ColumnButton
                   key={i}
-                  label={v}
+                  label={v.split(',')[0] ?? ''}
+                  secondLabel={v.split(',')[1]}
                   icon={<Menu className='h-4 w-4 opacity-50' strokeWidth={1} />}
                   hasNextLevel
                   isActive={isActive}

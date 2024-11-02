@@ -18,7 +18,7 @@ export default async function Home() {
             <Column title='Models'>
               <ColumnButton
                 label='Pages'
-                secondLabel='7'
+                secondLabel='6'
                 icon={<StickyNote />}
                 isActive
                 hasNextLevel
@@ -71,7 +71,7 @@ export default async function Home() {
                 type={'blocks'}
                 label='Blocks'
                 value={[
-                  'Column Layout',
+                  'Column Layout, 2 columns',
                   'News Preview',
                   'Full Width',
                   'Image',
@@ -89,7 +89,10 @@ export default async function Home() {
               <DataField
                 type={'blocks'}
                 label='Columns'
-                value={['Column', 'Column']}
+                value={[
+                  'Column, Content w. Text & Image',
+                  'Column, Content w. Text',
+                ]}
                 activeIndex={1}
                 footer={
                   <ColumnButton label='Add new column' icon={<Plus />} subtle />
@@ -100,7 +103,10 @@ export default async function Home() {
               <DataField
                 type={'blocks'}
                 label='Content'
-                value={['Text', 'Image']}
+                value={[
+                  'Text, This is an example of some...',
+                  'Image, Image with text',
+                ]}
                 activeIndex={0}
                 footer={
                   <ColumnButton
@@ -111,7 +117,13 @@ export default async function Home() {
                 }
               />
             </Column>
-            <Column title=''></Column>
+            <Column title=''>
+              <DataField
+                type={'textarea'}
+                label='Text'
+                value='This is an example of some text. This field can contain multiple lines of text.'
+              />
+            </Column>
             <Column title=''></Column>
           </div>
         </div>

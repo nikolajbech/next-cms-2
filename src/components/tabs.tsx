@@ -5,8 +5,13 @@ export const Tabs = () => {
     <div className='flex h-12 w-full items-center justify-between border-b bg-muted/30'>
       <div className='-gap-[1px] flex'>
         <div className='flex items-center px-4 font-bold'>NextCMS</div>
-        <TabButton label='Features (Page)' className='border-x' closable />
-        <TabButton label='History (Page)' className='border-r' closable />
+        <TabButton
+          isActive
+          label='Features (not saved)'
+          className='border-x'
+          closable
+        />
+        <TabButton label='History' className='border-r' closable />
       </div>
       <div className='-gap-[1px] flex'>
         <TabButton label='Preview' className='border-l' />
