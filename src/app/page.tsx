@@ -2,6 +2,7 @@ import { Dock, Menu, Newspaper, Plus, StickyNote } from 'lucide-react'
 
 import { Column } from '@/components/column'
 import { ColumnButton } from '@/components/column-button'
+import { DataField } from '@/components/data-field'
 import { SideBar } from '@/components/side-bar'
 import { Tabs } from '@/components/tabs'
 import { HydrateClient } from '@/trpc/server'
@@ -51,7 +52,11 @@ export default async function Home() {
               <div className='h-2' />
               <ColumnButton label='Add new page' icon={<Plus />} subtle />
             </Column>
-            <Column title='Page'></Column>
+            <Column title='Page'>
+              <DataField type={'text'} label='Title' />
+              <DataField type={'text'} label='Slug' />
+              <DataField type={'textarea'} label='Excerpt' />
+            </Column>
             <Column title='Two Column'></Column>
             <Column title='Text'></Column>
           </div>
