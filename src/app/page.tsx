@@ -1,18 +1,62 @@
-import { auth } from "@/server/auth";
-import { api, HydrateClient } from "@/trpc/server";
+import { Dock, Menu, Newspaper, Plus, StickyNote } from 'lucide-react'
+
+import { Column } from '@/components/column'
+import { ColumnButton } from '@/components/column-button'
+import { SideBar } from '@/components/side-bar'
+import { Tabs } from '@/components/tabs'
+import { HydrateClient } from '@/trpc/server'
 
 export default async function Home() {
-  const session = await auth();
-
-  if (session?.user) {
-    void api.post.getLatest.prefetch();
-  }
-
   return (
     <HydrateClient>
-      <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c] text-white">
-        Test
+      <main className='flex min-h-screen w-full flex-col'>
+        <Tabs />
+        <div className='flex h-full grow'>
+          <SideBar />
+          <div className='flex overflow-x-scroll'>
+            <Column title='Models'>
+              <ColumnButton
+                label='Pages'
+                secondLabel='7'
+                icon={<StickyNote />}
+                isActive
+                hasNextLevel
+              />
+              <ColumnButton
+                label='News'
+                secondLabel='17'
+                icon={<Newspaper />}
+                hasNextLevel
+              />
+              <ColumnButton
+                label='Menu'
+                secondLabel='7'
+                icon={<Menu />}
+                hasNextLevel
+              />
+              <ColumnButton
+                label='Footer'
+                secondLabel='7'
+                icon={<Dock />}
+                hasNextLevel
+              />
+            </Column>
+            <Column title='Pages'>
+              <ColumnButton label='Frontpage' hasNextLevel />
+              <ColumnButton label='About Us' hasNextLevel />
+              <ColumnButton label='Features' hasNextLevel isActive />
+              <ColumnButton label='Careers' hasNextLevel />
+              <ColumnButton label='Out History' hasNextLevel />
+              <ColumnButton label='Products' hasNextLevel />
+              <div className='h-2' />
+              <ColumnButton label='Add new page' icon={<Plus />} subtle />
+            </Column>
+            <Column title='Page'></Column>
+            <Column title='Two Column'></Column>
+            <Column title='Text'></Column>
+          </div>
+        </div>
       </main>
     </HydrateClient>
-  );
+  )
 }
