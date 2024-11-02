@@ -53,14 +53,40 @@ export default async function Home() {
               <ColumnButton label='Add new page' icon={<Plus />} subtle />
             </Column>
             <Column title='Page'>
-              <DataField type={'text'} label='Title' />
+              <DataField type={'text'} label='Title' value='Features' />
               <DataField type={'text'} label='Slug' />
               <DataField type={'boolean'} label='Is dynamic slug' />
               <DataField type={'textarea'} label='Excerpt' />
               <DataField type={'link'} label='Parent page' value='Products' />
+              <DataField
+                type={'link'}
+                label='Tags'
+                value={['Technology', 'Compliene']}
+                footer={
+                  <ColumnButton label='Add new tag' icon={<Plus />} subtle />
+                }
+              />
+
+              <DataField
+                type={'blocks'}
+                label='Blocks'
+                value={[
+                  'Two Column',
+                  'News Preview',
+                  'Full Width',
+                  'Image',
+                  'Grid',
+                ]}
+                activeValue='Two Column'
+                footer={
+                  <ColumnButton label='Add new block' icon={<Plus />} subtle />
+                }
+              />
             </Column>
             <Column title='Two Column'></Column>
             <Column title='Text'></Column>
+            <Column title=''></Column>
+            <Column title=''></Column>
           </div>
         </div>
       </main>

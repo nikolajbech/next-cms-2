@@ -15,7 +15,7 @@ export const ColumnButton = (p: {
   return (
     <Button
       className={cn(
-        'justify-between gap-2 rounded-none text-start',
+        'w-full justify-between gap-2 rounded-none text-start',
         p.subtle && 'text-foreground/30',
       )}
       variant={p.isActive ? 'selected' : 'ghost'}
