@@ -24,6 +24,7 @@ export const DataField = (p: {
   activeIndex?: number
   useInlineNesting?: boolean
   secondLabel?: string
+  onValueClick?: (index: number) => void
 }) => {
   return (
     <div className={cn('w-full pb-4', p.type === 'boolean' && '-mt-2')}>
@@ -83,6 +84,9 @@ export const DataField = (p: {
                   hasNextLevel
                   isActive={!p.useInlineNesting && isActive}
                   rotateChevron={isActive && p.useInlineNesting}
+                  onClick={() => {
+                    p.onValueClick?.(i)
+                  }}
                 />
               )
             },

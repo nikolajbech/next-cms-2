@@ -14,6 +14,7 @@ import { Tabs } from '@/components/tabs'
 export default function Home() {
   const [activeModelId, setActiveModelId] = useState('')
   const [activeRecordId, setActiveRecordId] = useState('')
+  const [secondLayerModelId, setSecondLayerModelId] = useState('')
 
   const models = allModels
     .filter((m) => m.modular_block === false)
@@ -25,9 +26,13 @@ export default function Home() {
     ...(activeModel?.fieldsets
       .sort((a, b) => a.position - b.position)
       .flatMap((fs) =>
-        activeModel.fields.filter((f) => f.fieldset?.id === fs.id),
+        activeModel.fields
+          .filter((f) => f.fieldset?.id === fs.id)
+          .sort((a, b) => a.position - b.position),
       ) ?? []),
-    ...(activeModel?.fields.filter((f) => !f.fieldset?.id) ?? []),
+    ...(activeModel?.fields.filter((f) => !f.fieldset?.id) ?? []).sort(
+      (a, b) => a.position - b.position,
+    ),
   ]
 
   const previewKey = activeModelFields.find((f) => f.field_type === 'string')
@@ -87,14 +92,6 @@ export default function Home() {
           {activeRecordId && (
             <Column title='Record'>
               {activeModelFields.map((field, i) => (
-                // <DataField
-                //   key={i}
-                //   type={field.field_type}
-                //   label={field.label}
-                //   value={allRecords.find((r) => r.id === activeRecordId)[
-                //     field.api_key
-                //   ]}
-                // />
                 // <pre>{JSON.stringify(field, null, 2)}</pre>
                 <div key={i}>
                   {/* {field.api_key} ({field.field_type}) */}
@@ -155,7 +152,6 @@ export default function Home() {
                         <ColumnButton
                           label={`Add new ${field.label}`}
                           icon={<Plus />}
-                          subtle
                         />
                       }
                     />
@@ -164,32 +160,31 @@ export default function Home() {
                     <DataField
                       type={'blocks'}
                       label={field.label}
-                      value={
-                        (
+                      onValueClick={(index) => {
+                        setSecondLayerModelId(
                           allRecords.find((r) => r.id === activeRecordId)[
                             field.api_key
-                          ].da as string[]
-                        ).map((blockId) => {
-                          const block = allRecords.find((r) => r.id === blockId)
-                          console.log(
-                            'block?.item_type.id',
-                            block?.item_type.id,
-                          )
+                          ][index].item_type.id,
+                        )
+                      }}
+                      value={(
+                        allRecords.find((r) => r.id === activeRecordId)[
+                          field.api_key
+                        ].da as string[]
+                      ).map((blockId) => {
+                        const block = allRecords.find((r) => r.id === blockId)
+                        console.log('block?.item_type.id', block?.item_type.id)
 
-                          const model = allModels.find(
-                            (m) => m.id === block?.item_type.id,
-                          )
-                          console.log('model', model)
-                          return model?.name ?? 'Not found'
-                        })
-
-                        // .map((blockId) => (models.find((m) => m.id === (allRecords.find((r) => r.id === blockId).item_type.id))?.name
-                      }
+                        const model = allModels.find(
+                          (m) => m.id === block?.item_type.id,
+                        )
+                        console.log('model', model)
+                        return model?.name ?? 'Not found'
+                      })}
                       footer={
                         <ColumnButton
                           label={`Add new ${field.label}`}
                           icon={<Plus />}
-                          subtle
                         />
                       }
                     />
@@ -205,7 +200,6 @@ export default function Home() {
                         <ColumnButton
                           label={`Add new ${field.label}`}
                           icon={<Plus />}
-                          subtle
                         />
                       }
                     />
