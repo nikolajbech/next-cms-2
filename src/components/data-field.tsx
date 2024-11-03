@@ -1,4 +1,4 @@
-import { ChevronRight, Link, Menu } from 'lucide-react'
+import { Link, Menu } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -22,11 +22,16 @@ export const DataField = (p: {
   value?: string | string[]
   footer?: React.ReactNode
   activeIndex?: number
+  useInlineNesting?: boolean
+  secondLabel?: string
 }) => {
   return (
     <div className={cn('w-full pb-4', p.type === 'boolean' && '-mt-2')}>
       {p.type !== 'boolean' && (
-        <div className='mx-4 px-1 text-sm opacity-30'>{p.label}</div>
+        <div className='mx-4 flex justify-between px-1 text-sm opacity-30'>
+          {p.label}
+          {p.secondLabel && <span className='text-xs'>{p.secondLabel}</span>}
+        </div>
       )}
       {p.type === 'text' && (
         <div className='px-3'>
@@ -76,7 +81,8 @@ export const DataField = (p: {
                   secondLabel={v.split(',')[1]}
                   icon={<Menu className='h-4 w-4 opacity-50' strokeWidth={1} />}
                   hasNextLevel
-                  isActive={isActive}
+                  isActive={!p.useInlineNesting && isActive}
+                  rotateChevron={isActive && p.useInlineNesting}
                 />
               )
             },

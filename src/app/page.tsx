@@ -1,4 +1,6 @@
-import { Dock, Menu, Newspaper, Plus, StickyNote } from 'lucide-react'
+import { Dock, Menu, Newspaper, Plus, StickyNote, Tag } from 'lucide-react'
+import allModels from 'src/data/models-backup.json'
+import allRecords from 'src/data/records-backup.json'
 
 import { Column } from '@/components/column'
 import { ColumnButton } from '@/components/column-button'
@@ -8,22 +10,38 @@ import { Tabs } from '@/components/tabs'
 import { HydrateClient } from '@/trpc/server'
 
 export default async function Home() {
+  const models = allModels
+    .filter((m) => m.modular_block === false)
+    .sort((a, b) => a.name.localeCompare(b.name))
+
+  const pages = allRecords
+    .filter((r) => r.item_type.id === 'eu0mPOpeQfCSoD9wPWUm_g')
+    .sort((a, b) => a.title.da.localeCompare(b.title.da))
+
+  console.log(
+    'models',
+    models.map((m) => m.name),
+  )
+
   return (
     <HydrateClient>
-      <main className='flex min-h-screen w-full flex-col'>
+      <main className='flex w-full flex-col'>
         <Tabs />
         <div className='flex h-full grow'>
           <SideBar />
           <div className='flex overflow-x-scroll'>
             <Column title='Models'>
-              <ColumnButton
-                label='Pages'
-                secondLabel='6'
-                icon={<StickyNote />}
-                isActive
-                hasNextLevel
-              />
-              <ColumnButton
+              {models.map((model, i) => (
+                <ColumnButton
+                  key={i}
+                  label={model.name}
+                  // secondLabel='6'
+                  icon={<StickyNote />}
+                  isActive={model.name === 'Page'}
+                  hasNextLevel
+                />
+              ))}
+              {/* <ColumnButton
                 label='News'
                 secondLabel='17'
                 icon={<Newspaper />}
@@ -41,27 +59,40 @@ export default async function Home() {
                 icon={<Dock />}
                 hasNextLevel
               />
+              <ColumnButton
+                label='Tags'
+                secondLabel='7'
+                icon={<Tag />}
+                hasNextLevel
+              /> */}
             </Column>
             <Column title='Pages'>
-              <ColumnButton label='Frontpage' hasNextLevel />
-              <ColumnButton label='About Us' hasNextLevel />
-              <ColumnButton label='Products' hasNextLevel />
-              <ColumnButton label='Features' hasNextLevel isActive />
-              <ColumnButton label='Careers' hasNextLevel />
-              <ColumnButton label='Out History' hasNextLevel />
+              {pages.map((page, i) => (
+                <ColumnButton key={i} label={page.title.da} hasNextLevel />
+              ))}
+              {/* <ColumnButton label='About Us' hasNextLevel />
+               <ColumnButton label='Products' hasNextLevel />
+               <ColumnButton label='Features' hasNextLevel isActive />
+               <ColumnButton label='Careers' hasNextLevel />
+               <ColumnButton label='Out History' hasNextLevel /> */}
               <div className='h-2' />
               <ColumnButton label='Add new page' icon={<Plus />} subtle />
             </Column>
             <Column title='Page'>
-              <DataField type={'text'} label='Title' value='Features' />
+              <DataField
+                type={'text'}
+                label='Title'
+                value='Features'
+                secondLabel='EN'
+              />
               <DataField type={'text'} label='Slug' />
               <DataField type={'boolean'} label='Is dynamic slug' />
-              <DataField type={'textarea'} label='Excerpt' />
+              <DataField type={'textarea'} label='Excerpt' secondLabel='EN' />
               <DataField type={'link'} label='Parent page' value='Products' />
               <DataField
                 type={'link'}
                 label='Tags'
-                value={['Technology', 'Compliene']}
+                value={['Technology', 'Compliecne']}
                 footer={
                   <ColumnButton label='Add new tag' icon={<Plus />} subtle />
                 }
@@ -95,7 +126,31 @@ export default async function Home() {
                 ]}
                 activeIndex={1}
                 footer={
-                  <ColumnButton label='Add new column' icon={<Plus />} subtle />
+                  <>
+                    {/* <InlineWrapper>
+                      <DataField
+                        type={'blocks'}
+                        label='Content'
+                        value={[
+                          'Text, This is an example of some...',
+                          'Image, Image with text',
+                        ]}
+                        activeIndex={0}
+                        footer={
+                          <ColumnButton
+                            label='Add new content'
+                            icon={<Plus />}
+                            subtle
+                          />
+                        }
+                      />
+                    </InlineWrapper> */}
+                    <ColumnButton
+                      label='Add new column'
+                      icon={<Plus />}
+                      subtle
+                    />
+                  </>
                 }
               />
             </Column>
@@ -117,10 +172,10 @@ export default async function Home() {
                 }
               />
             </Column>
-            <Column title=''>
+            <Column title='Text'>
               <DataField
                 type={'textarea'}
-                label='Text'
+                label='Value'
                 value='This is an example of some text. This field can contain multiple lines of text.'
               />
             </Column>

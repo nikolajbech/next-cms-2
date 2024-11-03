@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'
+import { ChevronDown, X } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -9,6 +9,7 @@ export const TabButton = (p: {
   className?: string
   closable?: boolean
   isActive?: boolean
+  dropdown?: boolean
 }) => {
   return (
     <Button
@@ -21,6 +22,7 @@ export const TabButton = (p: {
       variant={'ghost'}
     >
       {p.label}
+      {p.dropdown && <ChevronDown className='-ml-1 h-4 w-4' />}
       {p.closable && <X className='h-4 w-4' />}
     </Button>
   )

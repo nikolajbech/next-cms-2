@@ -11,6 +11,7 @@ export const ColumnButton = (p: {
   isActive?: boolean
   hasNextLevel?: boolean
   subtle?: boolean
+  rotateChevron?: boolean
 }) => {
   return (
     <Button
@@ -28,7 +29,12 @@ export const ColumnButton = (p: {
         </span>
       </div>
       {p.hasNextLevel && (
-        <span className={cn(!p.isActive && 'opacity-25')}>
+        <span
+          className={cn(
+            !p.isActive && 'opacity-25',
+            p.rotateChevron && 'rotate-90',
+          )}
+        >
           <ChevronRight />
         </span>
       )}

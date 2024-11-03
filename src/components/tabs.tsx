@@ -14,6 +14,7 @@ export const Tabs = () => {
         <TabButton label='History' className='border-r' closable />
       </div>
       <div className='-gap-[1px] flex'>
+        <TabButton label='EN' className='border-l' dropdown />
         <TabButton label='Preview' className='border-l' />
         <TabButton label='Build' className='border-l' />
         <TabButton label='Settings' className='border-l' />
