@@ -12,6 +12,7 @@ export const ColumnButton = (p: {
   hasNextLevel?: boolean
   subtle?: boolean
   rotateChevron?: boolean
+  onClick?: () => void
 }) => {
   return (
     <Button
@@ -20,6 +21,7 @@ export const ColumnButton = (p: {
         p.subtle && 'text-foreground/30',
       )}
       variant={p.isActive ? 'selected' : 'ghost'}
+      onClick={p.onClick}
     >
       <div className='flex items-center gap-2'>
         <span className='opacity-90'>{p.icon}</span>
