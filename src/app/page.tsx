@@ -165,9 +165,25 @@ export default function Home() {
                       type={'blocks'}
                       label={field.label}
                       value={
-                        allRecords.find((r) => r.id === activeRecordId)[
-                          field.api_key
-                        ].da
+                        (
+                          allRecords.find((r) => r.id === activeRecordId)[
+                            field.api_key
+                          ].da as string[]
+                        ).map((blockId) => {
+                          const block = allRecords.find((r) => r.id === blockId)
+                          console.log(
+                            'block?.item_type.id',
+                            block?.item_type.id,
+                          )
+
+                          const model = allModels.find(
+                            (m) => m.id === block?.item_type.id,
+                          )
+                          console.log('model', model)
+                          return model?.name ?? 'Not found'
+                        })
+
+                        // .map((blockId) => (models.find((m) => m.id === (allRecords.find((r) => r.id === blockId).item_type.id))?.name
                       }
                       footer={
                         <ColumnButton
